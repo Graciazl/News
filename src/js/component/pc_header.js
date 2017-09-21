@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {Row, Col, Menu, Icon, Tabs, message, Form, Input, Button, Checkbox, Modal} from 'antd';
+import 'whatwg-fetch';
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -34,11 +35,24 @@ class PCHeader extends React.Component {
     }
 
     handleSubmit(e) {
+        e.preventDefault();
+        var myFetchOptions = {
+            method: 'GET'
+        };
 
+        var formData = this.props.form.getFieldsValue;
+        console.log(formData);
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName="+formData.r_userName+"&r_password="+formData.r_password+"&r_confirmPassword="+formData.r_confirmPassword,myFetchOptions).
+        then(response=>response.json()).then(json=>{
+            this.setState({userNickName:json.NickUserName,userid:json.UserId});
+        });
+
+        message.success("Successful request.");
+        this.setModalVisible(false);
     }
 
     render() {
-        let {getFieldProps} = this.props.form;
+        let {getFieldDecorator} = this.props.form;
         let userShow = this.state.hasLogined
             ? <Menu.Item>
             <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
@@ -92,15 +106,15 @@ class PCHeader extends React.Component {
                                okText="Close" cancelText="Cancel">
                             <Tabs type="card">
                                 <TabPane tab="Register" key="1">
-                                    <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                         <FormItem label="Account">
-                                            <Input placeholder="Please enter your account" {...getFieldProps('r_userName')}/>
+                                            <Input placeholder="Please enter your account" {...getFieldDecorator('r_userName')}/>
                                         </FormItem>
                                         <FormItem label="Password">
-                                            <Input type="password" placeholder="Please enter your password" {...getFieldProps('r_userPassword')}/>
+                                            <Input type="password" placeholder="Please enter your password" {...getFieldDecorator('r_userPassword')}/>
                                         </FormItem>
                                         <FormItem label="Confirm Password">
-                                            <Input type="password" placeholder="Please confirm your password" {...getFieldProps('r_confirmPassword')}/>
+                                            <Input type="password" placeholder="Please confirm your password" {...getFieldDecorator('r_confirmPassword')}/>
                                         </FormItem>
                                         <Button type="primary" htmlType="submit">Register</Button>
                                     </Form>
