@@ -43,12 +43,33 @@ class MobileHeader extends React.Component {
 
         var formData = this.props.form.getFieldsValue;
         console.log(formData);
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(response=>response.json()).then(json=> {
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
+            + "&username=" + formData.userName + "&password=" + formData.password
+            + "&r_userName=" + formData.r_userName + "&r_password="
+            + formData.r_password + "&r_confirmPassword="
+            + formData.r_confirmPassword, myFetchOptions)
+            .then(response=>response.json()).then(json=> {
             this.setState({userNickName: json.NickUserName, userid: json.UserId});
         });
 
+        if(this.state.action==="login") {
+            this.setState({hasLogined: true});
+        }
+
         message.success("Successful request.");
         this.setModalVisible(false);
+    }
+
+    callback(key) {
+        if (key === 1) {
+            this.setState({
+                action: 'login'
+            });
+        } else if (key === 2) {
+            this.setState({
+                action: 'register'
+            });
+        }
     }
 
     login(){
@@ -74,7 +95,20 @@ class MobileHeader extends React.Component {
                        onCancel={()=>this.setModalVisible(false)} onOk={()=>this.setModalVisible(false)}
                        okText="Close" cancelText="Cancel">
                     <Tabs type="card">
-                        <TabPane tab="Register" key="1">
+                        <TabPane tab="Login" key="1">
+                            <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                <FormItem label="Account">
+                                    <Input
+                                        placeholder="Please enter your account" {...getFieldDecorator('userName')}/>
+                                </FormItem>
+                                <FormItem label="Password">
+                                    <Input type="password"
+                                           placeholder="Please enter your password" {...getFieldDecorator('userPassword')}/>
+                                </FormItem>
+                                <Button type="primary" htmlType="submit">Login</Button>
+                            </Form>
+                        </TabPane>
+                        <TabPane tab="Register" key="2">
                             <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                 <FormItem label="Account">
                                     <Input

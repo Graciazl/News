@@ -80,7 +80,7 @@ class PCHeader extends React.Component {
             ? <Menu.Item>
             <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
             <Link target="_blank">
-                <Button type="dashed" htmlType="'button">
+                <Button type="dashed" htmlType="button">
                     Profile
                 </Button>
             </Link>
