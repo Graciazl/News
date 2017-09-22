@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Row, Col, Menu, Icon, Tabs, message, Form, Input, Button, Checkbox, Modal} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {Router, Route, Link, browserHistory} from 'react-router';
 import 'whatwg-fetch';
 
 const FormItem = Form.Item;
@@ -61,7 +61,7 @@ class MobileHeader extends React.Component {
             ? <Link>
             <Icon type="inbox"/>
             </Link>
-            : <Icon type="setting" onClick={this.login.bind(this)}/>;
+            : <Icon type="plus-circle" onClick={this.login.bind(this)}/>;
 
         return (
             <div id="mobileheader">

@@ -27,8 +27,8 @@ class PCHeader extends React.Component {
     }
 
     handleClick(e) {
-        if (e.key='register') {
-            this.setState({current:'register'});
+        if (e.key = 'register') {
+            this.setState({current: 'register'});
             this.setModalVisible(true);
         } else {
             this.setState({current: e.key});
@@ -43,13 +43,35 @@ class PCHeader extends React.Component {
 
         var formData = this.props.form.getFieldsValue;
         console.log(formData);
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName="+formData.r_userName+"&r_password="+formData.r_password+"&r_confirmPassword="+formData.r_confirmPassword,myFetchOptions).
-        then(response=>response.json()).then(json=>{
-            this.setState({userNickName:json.NickUserName,userid:json.UserId});
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
+            + "&username=" + formData.userName + "&password=" + formData.password
+            + "&r_userName=" + formData.r_userName + "&r_password="
+            + formData.r_password + "&r_confirmPassword="
+            + formData.r_confirmPassword, myFetchOptions)
+            .then(response=>response.json()).then(json=> {
+            this.setState({userNickName: json.NickUserName, userid: json.UserId});
+/*            localStorage.userid= json.UserId;
+            localStorage.userNickName = json.NickUserName;*/
         });
+
+        if(this.state.action==="login") {
+            this.setState({hasLogined: true});
+        }
 
         message.success("Successful request.");
         this.setModalVisible(false);
+    }
+
+    callback(key) {
+        if (key === 1) {
+            this.setState({
+                action: 'login'
+            });
+        } else if (key === 2) {
+            this.setState({
+                action: 'register'
+            });
+        }
     }
 
     render() {
@@ -81,7 +103,8 @@ class PCHeader extends React.Component {
                         </a>
                     </Col>
                     <Col span={16}>
-                        <Menu mode="horizontal" onClick={this.handleClick.bind(this)} selectedKeys={[this.state.current]}>
+                        <Menu mode="horizontal" onClick={this.handleClick.bind(this)}
+                              selectedKeys={[this.state.current]}>
                             <Menu.Item key="top">
                                 <Icon type="appstore"/>World
                             </Menu.Item>
@@ -105,17 +128,33 @@ class PCHeader extends React.Component {
                         <Modal wrapClassName="vertical-center-modal" visible={this.state.modalVisible}
                                onCancel={()=>this.setModalVisible(false)} onOk={()=>this.setModalVisible(false)}
                                okText="Close" cancelText="Cancel">
-                            <Tabs type="card">
-                                <TabPane tab="Register" key="1">
+                            <Tabs type="card" onChange={this.callback.bind(this)}>
+                                <TabPane tab="Login" key="1">
                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                         <FormItem label="Account">
-                                            <Input placeholder="Please enter your account" {...getFieldDecorator('r_userName')}/>
+                                            <Input
+                                                placeholder="Please enter your account" {...getFieldDecorator('userName')}/>
                                         </FormItem>
                                         <FormItem label="Password">
-                                            <Input type="password" placeholder="Please enter your password" {...getFieldDecorator('r_userPassword')}/>
+                                            <Input type="password"
+                                                   placeholder="Please enter your password" {...getFieldDecorator('userPassword')}/>
+                                        </FormItem>
+                                        <Button type="primary" htmlType="submit">Login</Button>
+                                    </Form>
+                                </TabPane>
+                                <TabPane tab="Register" key="2">
+                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                                        <FormItem label="Account">
+                                            <Input
+                                                placeholder="Please enter your account" {...getFieldDecorator('r_userName')}/>
+                                        </FormItem>
+                                        <FormItem label="Password">
+                                            <Input type="password"
+                                                   placeholder="Please enter your password" {...getFieldDecorator('r_userPassword')}/>
                                         </FormItem>
                                         <FormItem label="Confirm Password">
-                                            <Input type="password" placeholder="Please confirm your password" {...getFieldDecorator('r_confirmPassword')}/>
+                                            <Input type="password"
+                                                   placeholder="Please confirm your password" {...getFieldDecorator('r_confirmPassword')}/>
                                         </FormItem>
                                         <Button type="primary" htmlType="submit">Register</Button>
                                     </Form>
