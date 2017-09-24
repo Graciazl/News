@@ -26,7 +26,6 @@ class PCHeader extends React.Component {
         if (localStorage.userid != '') {
             this.setState({hasLogined: true});
             this.setState({userNickName: localStorage.userNickName, userid: localStorage.userid});
-            this.setModalVisible(false);
         }
     }
 
@@ -62,17 +61,6 @@ class PCHeader extends React.Component {
                 localStorage.userid = json.UserId;
                 localStorage.userNickName = json.NickUserName;
             });
-
-        /*        var formData = this.props.form.getFieldsValue;
-         console.log(formData);
-         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
-         + "&username=" + formData.userName + "&password=" + formData.password
-         + "&r_userName=" + formData.r_userName + "&r_password="
-         + formData.r_password + "&r_confirmPassword="
-         + formData.r_confirmPassword, myFetchOptions)
-         .then(response=>{
-         console.log(response.json());
-         });*/
 
         if (this.state.action === "login") {
             this.setState({hasLogined: true});
