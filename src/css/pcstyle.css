@@ -20,3 +20,12 @@
 .register {
     float: right !important;
 }
+
+.container {
+    padding-top: 10px;
+}
+
+.leftContainer {
+    width: 400px;
+    float: left;
+}
