@@ -25,11 +25,16 @@ export default class PCNewsBlock extends React.Component {
     }
 
     render() {
+        const styleLink = {
+            color: "#666",
+            lineHeight: "22px"
+        };
+
         const {news} = this.state;
         let newsList = news.length
             ? news.map((newsItem, index) => (
             <li key={index}>
-                <Link to={`details/${newsItem.uniquekey}`} target="_blank">
+                <Link to={`details/${newsItem.uniquekey}`} target="_blank" style={styleLink}>
                     {newsItem.title}
                 </Link>
             </li>

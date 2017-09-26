@@ -60,11 +60,6 @@ body, html {
     margin-bottom: 10px;
 }
 
-.newsList a {
-    line-height: 22px;
-    color: #666;
-}
-
 .imageblock {
     float: left;
 }
