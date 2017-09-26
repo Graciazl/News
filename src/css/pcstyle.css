@@ -1,3 +1,11 @@
+body, html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 .logo {
     align-items: center;
     display: flex;
@@ -32,12 +40,11 @@
 
 .carousel {
     width: 400px;
-    float: left;
 }
 
 .carousel img {
     width: 400px;
-    height: 260px;
+    height: 250px;
 }
 
 .tabs_news {
@@ -56,4 +63,16 @@
 .newsList a {
     line-height: 22px;
     color: #666;
+}
+
+.imageblock {
+    float: left;
+}
+
+.custom-card {
+    padding: 3px;
+}
+
+.custom-card p {
+    color: #999;
 }
