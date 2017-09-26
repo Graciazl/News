@@ -1,11 +1,11 @@
 /**
- * Created by Gracia on 17/9/24.
+ * Created by Gracia on 17/9/25.
  */
 import React from 'react';
 import {Card} from 'antd';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
-export default class PCNewsBlock extends React.Component {
+export default class PCImageBlock extends React.Component {
 
     constructor() {
         super();
@@ -25,22 +25,38 @@ export default class PCNewsBlock extends React.Component {
     }
 
     render() {
+        const styleImage = {
+            display: "block",
+            width: this.props.imageWidth,
+            height: "90px"
+        };
+        const styleH3 = {
+            width: this.props.imageWidth,
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden"
+        };
+
         const {news} = this.state;
         let newsList = news.length
             ? news.map((newsItem, index) => (
-            <li key={index}>
+            <div key={index} class="imageblock">
                 <Link to={`details/${newsItem.uniquekey}`} target="_blank">
-                    {newsItem.title}
+                    <div class="custom-image">
+                        <img src={newsItem.thumbnail_pic_s} style={styleImage}/>
+                    </div>
+                    <div class="custom-card">
+                        <h3 style={styleH3}>{newsItem.title}</h3>
+                    </div>
                 </Link>
-            </li>
+            </div>
         ))
             : 'No news loaded.';
+
         return (
             <div class="newslist">
-                <Card>
-                    <ul>
-                        {newsList}
-                    </ul>
+                <Card title={this.props.cartTitle} bordered={true} style={{width: this.props.width}}>
+                    {newsList}
                 </Card>
             </div>
         );
