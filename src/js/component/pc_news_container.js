@@ -58,7 +58,6 @@ export default class pcNewsContainer extends React.Component {
                     <Col span={2}></Col>
                 </Row>
             </div>
-
         );
     }
 }
