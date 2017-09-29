@@ -1,11 +1,13 @@
+/**
+ * Created by Gracia on 17/9/28.
+ */
 import React from 'react';
 import {Row, Col, BackTop} from 'antd';
 
-import PCHeader from './pc_header';
-import PCFooter from './pc_footer';
-import PCImageBlock from './pc_news_image';
+import MobileHeader from './mobile_header';
+import MobileFooter from './mobile_footer';
 
-export default class PCNewsDetails extends React.Component {
+export default class MobileNewsDetails extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -32,19 +34,17 @@ export default class PCNewsDetails extends React.Component {
 
     render() {
         return (
-            <div>
-                <PCHeader/>
-                <Row>
-                    <Col span={2}></Col>
-                    <Col span={14} class="container">
-                        <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
-                    </Col>
-                    <Col span={6}>
-                        <PCImageBlock count={50} type="top" width="100%" cartTitle="Related news" imageWidth="120px"/>
-                    </Col>
-                    <Col span={2}></Col>
-                </Row>
-                <PCFooter/>
+            <div id="mobileDetails">
+                <MobileHeader/>
+                <div class="mobileList">
+                    <Row>
+                        <Col span={24}>
+                            <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                        </Col>
+                    </Row>
+                </div>
+
+                <MobileFooter/>
                 <BackTop/>
             </div>
         );
