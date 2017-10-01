@@ -48,7 +48,7 @@ class PCHeader extends React.Component {
             method: 'GET'
         };
 
-        var formData = this.props.form.getFieldsValue;
+        var formData = this.props.form.getFieldsValue();
         console.log(formData);
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
             + "&username=" + formData.userName + "&password=" + formData.password
@@ -60,6 +60,7 @@ class PCHeader extends React.Component {
                 this.setState({userNickName: json.NickUserName, userid: json.UserId});
                 localStorage.userid = json.UserId;
                 localStorage.userNickName = json.NickUserName;
+                console.log(json);
             });
 
         if (this.state.userid != '' ||  this.state.userid != undefined) {
@@ -89,7 +90,7 @@ class PCHeader extends React.Component {
     }
 
     render() {
-        let {getFieldDecorator} = this.props.form;
+        let {getFieldProps} = this.props.form;
         let userShow = this.state.hasLogined
             ? <Menu.Item key="login">
             <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
@@ -145,11 +146,11 @@ class PCHeader extends React.Component {
                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                         <FormItem label="Account">
                                             <Input
-                                                placeholder="Please enter your account" {...getFieldDecorator('userName')}/>
+                                                placeholder="Please enter your account" {...getFieldProps('userName')}/>
                                         </FormItem>
                                         <FormItem label="Password">
                                             <Input type="password"
-                                                   placeholder="Please enter your password" {...getFieldDecorator('userPassword')}/>
+                                                   placeholder="Please enter your password" {...getFieldProps('userPassword')}/>
                                         </FormItem>
                                         <Button type="primary" htmlType="submit">Login</Button>
                                     </Form>
@@ -158,15 +159,15 @@ class PCHeader extends React.Component {
                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                                         <FormItem label="Account">
                                             <Input
-                                                placeholder="Please enter your account" {...getFieldDecorator('r_userName')}/>
+                                                placeholder="Please enter your account" {...getFieldProps('r_userName')}/>
                                         </FormItem>
                                         <FormItem label="Password">
                                             <Input type="password"
-                                                   placeholder="Please enter your password" {...getFieldDecorator('r_userPassword')}/>
+                                                   placeholder="Please enter your password" {...getFieldProps('r_userPassword')}/>
                                         </FormItem>
                                         <FormItem label="Confirm Password">
                                             <Input type="password"
-                                                   placeholder="Please confirm your password" {...getFieldDecorator('r_confirmPassword')}/>
+                                                   placeholder="Please confirm your password" {...getFieldProps('r_confirmPassword')}/>
                                         </FormItem>
                                         <Button type="primary" htmlType="submit">Register</Button>
                                     </Form>
