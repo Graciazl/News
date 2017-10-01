@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Row, Col, Menu, Icon, Tabs, message, Form, Input, Button, Checkbox, Modal} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {Router, Route, Link, browserHistory} from 'react-router';
 import 'whatwg-fetch';
 
 const FormItem = Form.Item;
@@ -18,12 +18,12 @@ class PCHeader extends React.Component {
             action: 'login',
             hasLogined: false,
             userNickName: '',
-            userid: 0
+            userid: ''
         };
     }
 
     componentWillMount() {
-        if (localStorage.userid != '') {
+        if (localStorage.userid != '' && localStorage.userid != undefined) {
             this.setState({hasLogined: true});
             this.setState({userNickName: localStorage.userNickName, userid: localStorage.userid});
         }
@@ -62,7 +62,7 @@ class PCHeader extends React.Component {
                 localStorage.userNickName = json.NickUserName;
             });
 
-        if (this.state.action === "login") {
+        if (this.state.userid != '' ||  this.state.userid != undefined) {
             this.setState({hasLogined: true});
         }
 
@@ -91,7 +91,7 @@ class PCHeader extends React.Component {
     render() {
         let {getFieldDecorator} = this.props.form;
         let userShow = this.state.hasLogined
-            ? <Menu.Item>
+            ? <Menu.Item key="login">
             <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
             <Link target="_blank">
                 <Button type="dashed" htmlType="button">
@@ -107,9 +107,7 @@ class PCHeader extends React.Component {
         return (
             <header>
                 <Row>
-                    <Col span={2}>
-
-                    </Col>
+                    <Col span={2}></Col>
                     <Col span={4}>
                         <a href="/" class="logo">
                             <img src="./src/images/logo.svg" alt="logo"/>
