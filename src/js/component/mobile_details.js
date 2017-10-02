@@ -6,6 +6,7 @@ import {Row, Col, BackTop} from 'antd';
 
 import MobileHeader from './mobile_header';
 import MobileFooter from './mobile_footer';
+import Comments from './comments';
 
 export default class MobileNewsDetails extends React.Component {
     constructor() {
@@ -40,6 +41,8 @@ export default class MobileNewsDetails extends React.Component {
                     <Row>
                         <Col span={24}>
                             <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                            <hr/>
+                            <Comments uniquekey={this.props.params.uniquekey}/>
                         </Col>
                     </Row>
                 </div>
