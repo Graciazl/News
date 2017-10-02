@@ -2,11 +2,10 @@
  * Created by Gracia on 17/9/28.
  */
 import React from 'react';
-import {Row, Col, Menu, Icon, Tabs, Form, Input, Button} from 'antd';
+import {Row, Col, Menu, Icon, Tabs, Form, Input, Button, Card} from 'antd';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
 const FormItem = Form.Item;
-const TabPane = Tabs.TabPane;
 
 class Comments extends React.Component {
     constructor() {
@@ -21,7 +20,7 @@ class Comments extends React.Component {
             method: 'GET'
         };
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey="
-            + this.props.params.uniquekey, myFetchOptions)
+            + this.props.uniquekey, myFetchOptions)
             .then(response => response.json())
             .then(json => {
                 this.setState({comments: json});
@@ -31,27 +30,28 @@ class Comments extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        var formdata = this.props.form.getFieldsValue;
+        var formData = this.props.form.getFieldsValue();
+        console.log(formData);
+
         var myFetchOptions = {
             method: 'GET'
         };
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid="
             + localStorage.userid + "&uniquekey="
-            + this.props.params.uniquekey + "&commnet="
-            + formdata.remark, myFetchOptions)
+            + this.props.uniquekey + "&commnet="
+            + formData.remark, myFetchOptions)
             .then(response => response.json())
             .then(json => {
                 this.componentDidMount();
             })
     }
 
-
     render() {
         let {getFieldDecorator} = this.props.form;
         const {comments} = this.state;
         let commentList = comments.length
             ? comments.map((comment, index) => (
-            <Card key={index} title={comment.UserName} extra={< a href = "#" > submitted {comment.datetime} < /a>}>
+            <Card key={index} title={comment.UserName} extra={<a href = "#"> submitted {comment.datetime} </a>}>
                 <p>{comment.Comments}</p>
             </Card>
         ))
@@ -63,8 +63,10 @@ class Comments extends React.Component {
                 {commentList}
                 <Form onSubmit={this.handleSubmit.bind(this)}>
                     <FormItem label="Your comments">
-                        <Input type="textarea"
-                               placeholder="Please leave your comments." {...getFieldDecorator('remark', {initialValue: ''})} />
+                        {getFieldDecorator('remark')(
+                            <Input type="textarea" placeholder="Please leave your comments."/>
+                        )}
+
                     </FormItem>
                     <Button type="primary" htmlType="submit">Submit comments</Button>
                 </Form>

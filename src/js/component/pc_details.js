@@ -4,6 +4,7 @@ import {Row, Col, BackTop} from 'antd';
 import PCHeader from './pc_header';
 import PCFooter from './pc_footer';
 import PCImageBlock from './pc_news_image';
+import Comments from './comments';
 
 export default class PCNewsDetails extends React.Component {
     constructor() {
@@ -38,6 +39,7 @@ export default class PCNewsDetails extends React.Component {
                     <Col span={2}></Col>
                     <Col span={14} class="container">
                         <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                        <Comments uniquekey={this.props.params.uniquekey}/>
                     </Col>
                     <Col span={6}>
                         <PCImageBlock count={50} type="top" width="100%" cartTitle="Related news" imageWidth="120px"/>
