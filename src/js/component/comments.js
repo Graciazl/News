@@ -2,7 +2,7 @@
  * Created by Gracia on 17/9/28.
  */
 import React from 'react';
-import {Row, Col, Menu, Icon, Tabs, Form, Input, Button, Card} from 'antd';
+import {Row, Col, Menu, Icon, Tabs, Form, Input, Button, Card, notification} from 'antd';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
 const FormItem = Form.Item;
@@ -43,6 +43,20 @@ class Comments extends React.Component {
             .then(json => {
                 this.componentDidMount();
             })
+    }
+
+    addUserCollection() {
+        var myFetchOptions = {
+            method: 'GET'
+        };
+
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid="
+            + localStorage.userid + "&uniquekey="
+            + this.props.uniquekey, myFetchOptions)
+            .then(response => response.json())
+            .then(json => (
+                notification['success']({message: 'News remind', description: 'Successfully collected'})
+            ));
     }
 
     render() {
