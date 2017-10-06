@@ -49,7 +49,7 @@ class PCHeader extends React.Component {
         };
 
         var formData = this.props.form.getFieldsValue();
-        console.log(formData);
+
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
             + "&username=" + formData.userName + "&password=" + formData.password
             + "&r_userName=" + formData.r_userName + "&r_password="
@@ -93,7 +93,7 @@ class PCHeader extends React.Component {
         let userShow = this.state.hasLogined
             ? <Menu.Item key="login">
             <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
-            <Link target="_blank">
+            <Link target="_blank" to={`/usercenter`}>
                 <Button type="dashed" htmlType="button">
                     Profile
                 </Button>

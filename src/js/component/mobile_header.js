@@ -79,7 +79,7 @@ class MobileHeader extends React.Component {
     render() {
         let {getFieldDecorator} = this.props.form;
         let userShow = this.state.hasLogined
-            ? <Link>
+            ? <Link to={`/usercenter`}>
             <Icon type="inbox"/>
             </Link>
             : <Icon type="plus-circle" onClick={this.login.bind(this)}/>;
