@@ -31,7 +31,6 @@ class Comments extends React.Component {
         e.preventDefault();
 
         var formData = this.props.form.getFieldsValue();
-        console.log(formData);
 
         var myFetchOptions = {
             method: 'GET'
@@ -66,9 +65,9 @@ class Comments extends React.Component {
                         {getFieldDecorator('remark')(
                             <Input type="textarea" placeholder="Please leave your comments."/>
                         )}
-
                     </FormItem>
                     <Button type="primary" htmlType="submit">Submit comments</Button>
+                    <Button type="primary" htmlType="button" onClick={this.addUserCollection.bind(this)}>Save news</Button>
                 </Form>
             </Row>
         );
