@@ -2,7 +2,7 @@
  * Created by Gracia on 17/10/6.
  */
 import React from 'react';
-import {Row, Col, Menu, Icon, Tabs, message, Form, Input, Button, Checkbox, Modal} from 'antd';
+import {Row, Col, Tabs, Icon, Modal, message, Upload} from 'antd';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
 import PCHeader from './pc_header';
@@ -11,7 +11,35 @@ import PCFooter from './pc_footer';
 const TabPane = Tabs.TabPane;
 
 export default class PCUserCenter extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            previewImage: '',
+            previewVisible: false
+        }
+    }
+
     render() {
+        const props = {
+            action: 'http://newsapi.gugujiankong.com/handler.ashx',
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
+            listType: 'picture-card',
+            defaultFileList: [
+                {
+                    uid: -1,
+                    name: 'xxx.png',
+                    state: 'done',
+                    url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+                    thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png'
+                }
+            ],
+            onPreview: (file) => {
+                this.setState({previewImage: file.url, previewVisible: true});
+            }
+        };
+
         return (
             <div>
                 <PCHeader/>
@@ -26,7 +54,15 @@ export default class PCUserCenter extends React.Component {
 
                             </TabPane>
                             <TabPane tab="Profile setting" key="3">
-
+                                <div class="clearfix">
+                                    <Upload {...props}>
+                                        <Icon type="plus"/>
+                                        <div className="ant-upload-text">Upload portrait</div>
+                                    </Upload>
+                                    <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                                        <img alt="preview" src={this.state.previewImage}/>
+                                    </Modal>
+                                </div>
                             </TabPane>
                         </Tabs>
                     </Col>
