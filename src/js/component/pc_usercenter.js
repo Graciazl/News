@@ -14,9 +14,31 @@ export default class PCUserCenter extends React.Component {
     constructor() {
         super();
         this.state = {
+            usercollection: '',
+            usercomments: '',
             previewImage: '',
             previewVisible: false
         }
+    }
+
+    componentDidMount() {
+        var myFetchOptions = {
+            method: 'GET'
+        };
+
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid="
+            + localStorage.userid, myFetchOptions)
+            .then(response => response.json())
+            .then(json => {
+                this.setState({usercollection: json});
+            });
+
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid="
+            + localStorage.userid, myFetchOptions)
+            .then(response => response.json())
+            .then(json => {
+                this.setState({usercomments: json});
+            });
     }
 
     render() {
@@ -40,6 +62,24 @@ export default class PCUserCenter extends React.Component {
             }
         };
 
+        const {usercollection, usercomments} = this.state;
+        const usercollectionList = usercollection.length
+            ? usercollection.map((uc, index)=>(
+                <Card key={index} title={uc.uniquekey}
+                      extra={<a target="_blank" href={`/#/details/${uc.uniquekey}`}>Check</a>}>
+                    <p>{uc.Title}</p>
+                </Card>
+            ))
+            : 'You do not have any collection.';
+
+        const usercommentsList = usercomments.length ?
+            usercomments.map((comment, index)=>(
+                <Card key={index} title={`on ${comment.datetime} comments ${comment.uniquekey}`} extra={<a target="_blank" href={`/#/details/${comment.uniquekey}`}>查看</a>}>
+                    <p>{comment.Comments}</p>
+                </Card>
+            ))
+            : 'You have no comments.';
+
         return (
             <div>
                 <PCHeader/>
@@ -48,10 +88,22 @@ export default class PCUserCenter extends React.Component {
                     <Col span={20}>
                         <Tabs>
                             <TabPane tab="My collection list" key="1">
-
+                                <div class="comment">
+                                    <Row>
+                                        <Col span={24}>
+                                            {usercollectionList}
+                                        </Col>
+                                    </Row>
+                                </div>
                             </TabPane>
                             <TabPane tab="My comments" key="2">
-
+                                <div class="comment">
+                                    <Row>
+                                        <Col span={24}>
+                                            {usercommentsList}
+                                        </Col>
+                                    </Row>
+                                </div>
                             </TabPane>
                             <TabPane tab="Profile setting" key="3">
                                 <div class="clearfix">
@@ -59,7 +111,8 @@ export default class PCUserCenter extends React.Component {
                                         <Icon type="plus"/>
                                         <div className="ant-upload-text">Upload portrait</div>
                                     </Upload>
-                                    <Modal visible={this.state.previewVisible} footer={null} onCancel={this.handleCancel}>
+                                    <Modal visible={this.state.previewVisible} footer={null}
+                                           onCancel={this.handleCancel}>
                                         <img alt="preview" src={this.state.previewImage}/>
                                     </Modal>
                                 </div>
