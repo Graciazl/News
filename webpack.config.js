@@ -21,7 +21,11 @@ module.exports = {
             }*/
 
             //使用 ant-design 的配置文件
-            { test: /\.css$/, loader: 'style-loader!css-loader' }
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            {
+                test: /\.less$/,
+                loader: "style-loader!css-loader!less-loader"
+            }
         ]
     },
     output: {

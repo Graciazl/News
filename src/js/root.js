@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import MediaQuery from 'react-responsive';
 import {Router, Route, hashHistory} from 'react-router';
 import 'antd/dist/antd.css';
-import {Button} from 'antd';
 
 import PCIndex from './component/pc_index';
 import PCNewsDetails from './component/pc_details';
