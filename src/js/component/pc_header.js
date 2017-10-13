@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Row, Col, Menu, Icon, Tabs, message, Form, Input, Button, Checkbox, Modal} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router';
+import {Link} from 'react-router-dom';
 import 'whatwg-fetch';
 
 const FormItem = Form.Item;

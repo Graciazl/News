@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Col, Row} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router';
+import {Link} from 'react-router-dom';
 
 import Tloader from 'react-touch-loader';
 
@@ -98,7 +98,6 @@ export default class MobileList extends React.Component {
                     <Tloader className="main" onLoadMore={this.loadMore.bind(this)} hasMore={hasMore} initializing={initializing}>
                         {newsList}
                     </Tloader>
-
                 </Col>
             </div>
         );

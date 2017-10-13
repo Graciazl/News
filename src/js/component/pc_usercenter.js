@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import {Row, Col, Tabs, Icon, Modal, message, Upload} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router';
 
 import PCHeader from './pc_header';
 import PCFooter from './pc_footer';

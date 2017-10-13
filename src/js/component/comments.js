@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import {Row, Col, Menu, Icon, Tabs, Form, Input, Button, Card, notification} from 'antd';
-import {Router, Route, Link, browserHistory} from 'react-router';
 
 const FormItem = Form.Item;
 
