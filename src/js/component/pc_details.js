@@ -19,7 +19,7 @@ export default class PCNewsDetails extends React.Component {
             method: 'GET'
         };
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey="
-            + this.props.params.uniquekey, myFetchOptions)
+            + this.props.match.params.uniquekey, myFetchOptions)
             .then(response => response.json())
             .then(json => {
                 this.setState({newsItem: json});
@@ -39,7 +39,7 @@ export default class PCNewsDetails extends React.Component {
                     <Col span={2}></Col>
                     <Col span={14} class="container">
                         <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
-                        <Comments uniquekey={this.props.params.uniquekey}/>
+                        <Comments uniquekey={this.props.match.params.uniquekey}/>
                     </Col>
                     <Col span={6}>
                         <PCImageBlock count={50} type="top" width="100%" cartTitle="Related news" imageWidth="120px"/>

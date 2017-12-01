@@ -26,10 +26,10 @@ export default class pcNewsContainer extends React.Component {
                         <div class="leftContainer">
                             <div className="carousel">
                                 <Carousel {...settings}>
-                                    <div><img src="./src/images/carousal_1.jpg"/></div>
-                                    <div><img src="./src/images/carousal_2.jpg"/></div>
-                                    <div><img src="./src/images/carousal_3.jpg"/></div>
-                                    <div><img src="./src/images/carousal_4.jpg"/></div>
+                                    <div><img src="/src/images/carousal_1.jpg"/></div>
+                                    <div><img src="/src/images/carousal_2.jpg"/></div>
+                                    <div><img src="/src/images/carousal_3.jpg"/></div>
+                                    <div><img src="/src/images/carousal_4.jpg"/></div>
                                 </Carousel>
                             </div>
                             <PCImageBlock count={6} type={"guoji"} width="400px" imageWidth="110px"
