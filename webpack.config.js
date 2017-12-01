@@ -3,6 +3,9 @@
  */
 
 module.exports = {
+    devServer: {
+      historyApiFallback: true
+    },
     entry:  __dirname + "/src/js/root.js",//唯一入口文件
     module: {
         loaders: [
